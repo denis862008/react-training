@@ -1,16 +1,42 @@
 import React from 'react';
 import { articles } from '../fixtures';
 import Article from './article';
+import { bindAll } from 'lodash';
+import CommonOpen from '../decorator/common-open';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 import './styles.less';
 
-export default class ArticlesList extends React.Component {
-    renderListArticles(article, idx) {
+class ArticlesList extends React.Component {
+    constructor(props) {
+        super(props);
+
+        bindAll(this, ['renderListArticles']);
+    }
+
+    renderListArticles(article) {
+        const { isItemOpen, toggleOpenItem } = this.props;
+
         return(
-            <li key = { idx } className="articles-item"> { <Article article={article} /> } </li>
+            <li key={ article.id } className='articles-item'>
+                {
+                    <Article
+                        article={ article }
+                        isOpen={ isItemOpen(article.id) }
+                        openArticle={ toggleOpenItem(article.id) }
+                    />
+                }
+            </li>
         );
     }
 
     render() {
+        const options = articles.map((article) => ({
+            label: article.title,
+            value: article.id
+        }));
+
+
         return(
             <div className="articles">
                 <ul>
@@ -20,3 +46,5 @@ export default class ArticlesList extends React.Component {
         );
     }
 }
+
+export default CommonOpen(ArticlesList);

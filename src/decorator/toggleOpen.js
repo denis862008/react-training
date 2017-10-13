@@ -20,7 +20,6 @@ module.exports = function(Component) {
 
 
         render() {
-            console.log('*', this.props);
             return <Component { ...this.props } isOpen = { this.state.isOpen } toggleOpen = { this.toggleOpen.bind(this) } />
         }
     }
