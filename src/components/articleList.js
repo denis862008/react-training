@@ -11,6 +11,10 @@ class ArticlesList extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            selectedArticles: null
+        };
+
         bindAll(this, ['renderListArticles']);
     }
 
@@ -30,6 +34,10 @@ class ArticlesList extends React.Component {
         );
     }
 
+    handleSelectChange = (selectedArticles) => {
+        this.setState({ selectedArticles });
+    };
+
     render() {
         const options = articles.map((article) => ({
             label: article.title,
@@ -39,6 +47,14 @@ class ArticlesList extends React.Component {
 
         return(
             <div className="articles">
+                <Select
+                    options={ options }
+                    multi={ true }
+                    onChange={ this.handleSelectChange }
+                    value={ this.state.selectedArticles }
+                />
+
+
                 <ul>
                     { articles.map(this.renderListArticles) }
                 </ul>
