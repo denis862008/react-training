@@ -9,6 +9,10 @@ class CommentsList extends React.Component {
         );
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return nextProps.isOpen !== this.props.isOpen;
+    }
+
     render() {
         const { comments, isOpen, toggleOpen } = this.props;
 
