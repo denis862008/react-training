@@ -1,7 +1,12 @@
-function counerReducer(count, action) {
-    return action.type === 'INCREMENT' ? ++count : count;
-}
+import { combineReducers } from 'redux';
+import counterReducer from './counter';
+import articleReducer from './articles';
 
-export default counerReducer;
+export default combineReducers({
+    count: counterReducer,
+    articles: articleReducer
+});
+
+
 
 
